@@ -98,14 +98,14 @@ TEMPLATE_LIST_CONTENT = """
         <tr>
             <td style="padding: 10px;">{{ item.id }}</td>
             <td>{{ item }}</td>
-            <td><a href="{%% url %(model)s-details item.id %%}">show</a></td>
+            <td><a href="{%% url '%(model)s-details' item.id %%}">show</a></td>
         </tr>
     {%% endfor %%}
     </table>
     <br />
     <input type="button" onclick="$('#add-form-div').toggle();" value="Add new %(model)s"><br /><br />
     <div id="add-form-div" style="display: none;">
-        <form action="{%% url %(model)s-list %%}" method="POST" id="add-form">
+        <form action="{%% url '%(model)s-list' %%}" method="POST" id="add-form">
                 <div id="form-fields">
                     {%% csrf_token %%}
                     {{ form }}
@@ -117,7 +117,7 @@ TEMPLATE_LIST_CONTENT = """
     <script type="text/javascript">
         (new FormHelper('add-form')).bind_for_ajax(
             function(data) {
-                $('#item-list').append('<td style="padding: 10px;">' + data.id + '</td><td>' + data.name + '</td><td><a href="{%% url %(model)s-list %%}' + data.id + '/">show</a></td>').hide().fadeIn();
+                $('#item-list').append('<td style="padding: 10px;">' + data.id + '</td><td>' + data.name + '</td><td><a href="{%% url "%(model)s-list" %%}' + data.id + '/">show</a></td>').hide().fadeIn();
                 $('#form-fields').html('');
                 $('#form-fields').append('<input type="hidden" value="' + data.token + '" name="csrfmiddlewaretoken">');
                 $('#form-fields').append(data.form);
@@ -151,7 +151,7 @@ TEMPLATE_DETAILS_CONTENT = """
             <tr>
                 <td style="padding: 10px;">{{ %(model)s.id }}</td>
                 <td>{{ %(model)s }}</td>
-                <td><input type="button" href="{%% url %(model)s-delete %(model)s.id %%}" id="delete-item" value="delete" /></td>
+                <td><input type="button" href="{%% url '%(model)s-delete' %(model)s.id %%}" id="delete-item" value="delete" /></td>
             </tr>
         </table>
         <br />
@@ -159,7 +159,7 @@ TEMPLATE_DETAILS_CONTENT = """
         <br />
         <input type="button" onclick="$('#add-form-div').toggle();" value="Edit %(model)s"><br /><br />
         <div id="add-form-div" style="display: none;">
-            <form action="{%% url %(model)s-details %(model)s.id %%}" method="POST" id="add-form">
+            <form action="{%% url '%(model)s-details' %(model)s.id %%}" method="POST" id="add-form">
                     <div id="form-fields">
                         {%% csrf_token %%}
                         {{ form }}
@@ -191,7 +191,7 @@ TEMPLATE_DETAILS_CONTENT = """
             });
         });
     </script>
-    <a href="{%% url %(model)s-list %%}">back to list</a>
+    <a href="{%% url '%(model)s-list' %%}">back to list</a>
 {%% endblock %%}
 """
 
